@@ -35,6 +35,7 @@ def main():
     def split_data(df):
         y = df['type']
         x = df.drop(columns=['type'])
+        # 80%=train 20%=test
         x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=0)
         return x_train, x_test, y_train, y_test
     
@@ -74,10 +75,10 @@ def main():
 
         if st.sidebar.button("Classify", key='classify'):
             st.subheader("Support Vector Machine (SVM) Results")
-            model = SVC(C=C, kernel=kernel, gamma=gamma)
-            model.fit(x_train, y_train)
-            accuracy = model.score(x_test, y_test)
-            y_pred = model.predict(x_test)
+            model = SVC(C=C, kernel=kernel, gamma=gamma) # สร้างโมเดล SVC
+            model.fit(x_train, y_train) # train model
+            accuracy = model.score(x_test, y_test) # คำนวนความแม่นยำ
+            y_pred = model.predict(x_test) # พยากรณ์ผลลัพธ์
 
             precision = precision_score(y_test, y_pred).round(2)
             recall = recall_score(y_test, y_pred).round(2)
