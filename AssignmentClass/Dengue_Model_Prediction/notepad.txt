@@ -1,0 +1,40 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+
+data = 'AssignmentClass/Data/pivot_output.csv'
+dataset = pd.read_csv(data)
+
+total_set = dataset['Total'].values.reshape(-1, 1)
+max_set = dataset['Tmin'].values.reshape(-1, 1)
+
+print('total = ',total_set.shape)
+print('max = ',max_set.shape)
+
+# 80% 20%
+total_train, total_test, max_train, max_test = train_test_split(total_set, max_set, test_size=0.2, random_state=0)
+
+# training
+model = LinearRegression()
+model.fit(total_train, max_train)
+
+# test
+max_pred = model.predict(total_test)
+
+# compare true data and predict data
+df = pd.DataFrame({'Actually': max_test.flatten(),'Predicted':max_pred.flatten()})
+
+print(df)
+print(df.shape)
+
+plt.scatter(total_test, max_test, label="Actual Data", color="blue")  # Add label and color for scatter plot
+plt.plot(total_test, max_pred, color="red", linewidth=2, label="Predicted Line")  # Add label for the line
+plt.title("Relationship between total and Tmax")  # Add a title
+plt.xlabel("Ttotal")  # Label for x-axis
+plt.ylabel("Tmax")  # Label for y-axis
+plt.legend()  # Add a legend to the plot
+plt.grid(True)  # Add grid for better readability
+plt.show()
+
