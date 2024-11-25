@@ -14,7 +14,9 @@ X = data[['datesick_month', 'AvgRain', 'province', 'Tmax', 'Tmin', 'datesick_dat
 y = data['Total']
 
 # Collect user input
-input_monthsick = int(input("Enter the month of sickness: "))
+input_datesick = int(input("Enter the date of sickness(eg. 1 - 30): "))
+input_monthsick = int(input("Enter the month of sickness(eg. 1 - 12): "))
+input_yearsick = int(input("Enter the year of sickness(2018 - 2020): "))
 input_avgRain = int(input("Enter the average rainfall (in mm): "))
 input_province = int(input(
     "Select your province:\n"
@@ -81,8 +83,8 @@ new_data = pd.DataFrame({
     'province': [selected_province],
     'Tmax': [input_Tmax],
     'Tmin': [input_Tmin],
-    'datesick_date':[1],
-    'datesick_year': [2018]
+    'datesick_date':[input_datesick],
+    'datesick_year': [input_yearsick]
 })
 
 # Encode the user's province
